@@ -37,7 +37,8 @@ class LoginPage:
         dropdown.select_by_value("teach")
 
     def submitButton(self):
-        self.driver.find_element(By.ID, "signInBtn").click()
+        element = wait_for_clickable(self.driver, (By.ID, "signInBtn"))
+        element.click()
 
     def login(self,username,password):
         logger.info("In login page")
