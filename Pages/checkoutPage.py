@@ -8,12 +8,26 @@ class CheckoutPage:
     def __init__(self, driver):
         self.driver = driver
 
+    # def go_to_checkout(self):
+    #     element = wait_for_clickable(
+    #         self.driver,
+    #         (By.XPATH, "//a[contains(@class,'nav-link') and contains(text(),'Checkout')]")
+    #     )
+    #     element.click()
     def go_to_checkout(self):
-        element = wait_for_clickable(
-            self.driver,
-            (By.XPATH, "//a[contains(@class,'nav-link') and contains(text(),'Checkout')]")
-        )
-        element.click()
+        locator = (By.CSS_SELECTOR, "a.nav-link.btn.btn-primary")
+
+        element = wait_for_clickable(self.driver, locator)
+
+        # Scroll (CRITICAL for headless)
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+
+        # Small stabilization delay
+        import time
+        time.sleep(1)
+
+        # JS click (bypass interactable issue)
+        self.driver.execute_script("arguments[0].click();", element)
 
     def confirm_checkout(self):
         element = wait_for_clickable(
