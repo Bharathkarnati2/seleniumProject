@@ -1,0 +1,14 @@
+{
+    "users": [
+        {
+            "username": "rahulshettyacademy",
+            "password": "Learning@830$3mK2",
+            "type" : "valid"
+        },
+        {
+            "username": "rahulshettyacademy",
+            "password": "Learning",
+            "type" : "Invalid"
+        }
+    ]
+}
