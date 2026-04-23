@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from trio import sleep_forever
 
-from utills.utils import wait_for_clickable
+from utills.utils import wait_for_clickable, wait_for_element
 
 
 class CheckoutPage:
@@ -17,16 +17,9 @@ class CheckoutPage:
     def go_to_checkout(self):
         locator = (By.CSS_SELECTOR, "a.nav-link.btn.btn-primary")
 
-        element = wait_for_clickable(self.driver, locator)
+        element = wait_for_element(self.driver, locator)
 
-        # Scroll (CRITICAL for headless)
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-
-        # Small stabilization delay
-        import time
-        time.sleep(1)
-
-        # JS click (bypass interactable issue)
+        # JS click (final reliable click)
         self.driver.execute_script("arguments[0].click();", element)
 
     def confirm_checkout(self):
